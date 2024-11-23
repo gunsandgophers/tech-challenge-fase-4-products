@@ -4,14 +4,14 @@ import (
 	"tech-challenge-fase-1/internal/core/repositories"
 )
 
+type DeleteProductUseCase struct {
+	productRepository repositories.ProductRepositoryInterface
+}
+
 func NewDeleteProductUseCase(productRepository repositories.ProductRepositoryInterface) *DeleteProductUseCase {
 	return &DeleteProductUseCase{
 		productRepository: productRepository,
 	}
-}
-
-type DeleteProductUseCase struct {
-	productRepository repositories.ProductRepositoryInterface
 }
 
 func (dpc *DeleteProductUseCase) Execute(productID string) error {
