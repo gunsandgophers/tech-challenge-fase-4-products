@@ -3,23 +3,23 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    image: tech-challenge-go-app
+    image: tech-challenge-go-app-products
     restart: always
     ports:
-      - "3003:8080"
+      - "3001:8080"
     volumes:
       - ./:/app
     command: go run main.go
     environment:
-      POSTGRES_DB: tech-challenge-fase
-      POSTGRES_USER: tech-challenge-fase
-      POSTGRES_PASSWORD: tech-challenge-fase
+      POSTGRES_DB: tech-challenge-fase-4-products
+      POSTGRES_USER: tech-challenge-fase-4-products
+      POSTGRES_PASSWORD: tech-challenge-fase-4-products
       AWS_REGION: us-east-1
       AWS_USER_POOL_ID: us-east-1_3ofqHwfxr
     depends_on:
-      db:
+      dbproducts:
         condition: service_healthy
-  db:
+  dbproducts:
     image: postgres:16.3
     restart: always
     ports:
@@ -27,9 +27,9 @@ services:
     volumes:
       - ./data:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: tech-challenge-fase
-      POSTGRES_USER: tech-challenge-fase
-      POSTGRES_PASSWORD: tech-challenge-fase
+      POSTGRES_DB: tech-challenge-fase-4-products
+      POSTGRES_USER: tech-challenge-fase-4-products
+      POSTGRES_PASSWORD: tech-challenge-fase-4-products
       PGDATA: /var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U tech-challenge-fase"]
@@ -48,7 +48,7 @@ services:
     volumes:
       - ./data/servers.json:/pgadmin4/servers.json
     depends_on:
-      db:
+      dbproducts:
         condition: service_healthy
   migrate:
     build:
@@ -56,10 +56,10 @@ services:
       dockerfile: Dockerfile
     image: local-migrate
     environment:
-      DB_URI: "postgres://tech-challenge-fase:tech-challenge-fase@db/tech-challenge-fase?sslmode=disable"
+      DB_URI: "postgres://tech-challenge-fase-4-products:tech-challenge-fase-4-products@dbproducts/tech-challenge-fase-4-products?sslmode=disable"
     restart: on-failure:5
     depends_on:
-      db:
+      dbproducts:
         condition: service_healthy
   # migrate:
   #   image: migrate/migrate

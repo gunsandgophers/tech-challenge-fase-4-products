@@ -6,7 +6,7 @@ import (
 
 func TestCreateProduct(t *testing.T) {
 	name := "Product 1"
-	category := "Meal"
+	category := PRODUCT_CATEGORY_SANDWICH
 	price := float64(10.4)
 	description := "Some description"
 	image := "Some image"

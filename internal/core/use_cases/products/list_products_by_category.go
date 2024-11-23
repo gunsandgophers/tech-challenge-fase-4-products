@@ -7,16 +7,16 @@ import (
 	"tech-challenge-fase-1/internal/core/repositories"
 )
 
+type ListProductsByCategoryUseCase struct {
+	productRepository repositories.ProductRepositoryInterface
+}
+
 func NewListProductsByCategoryUseCase(
 	productRepository repositories.ProductRepositoryInterface,
 ) *ListProductsByCategoryUseCase {
 	return &ListProductsByCategoryUseCase{
 		productRepository: productRepository,
 	}
-}
-
-type ListProductsByCategoryUseCase struct {
-	productRepository repositories.ProductRepositoryInterface
 }
 
 func (lpbcc *ListProductsByCategoryUseCase) Execute(category string, page, size int) ([]dtos.ProductDTO, error) {

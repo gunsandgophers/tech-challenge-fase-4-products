@@ -7,17 +7,17 @@ import (
 	"tech-challenge-fase-1/internal/core/repositories"
 )
 
-type CreateProduct struct {
+type CreateProductUseCase struct {
 	productRepository repositories.ProductRepositoryInterface
 }
 
-func NewCreateProductUseCase(productRepository repositories.ProductRepositoryInterface) *CreateProduct {
-	return &CreateProduct{
+func NewCreateProductUseCase(productRepository repositories.ProductRepositoryInterface) *CreateProductUseCase {
+	return &CreateProductUseCase{
 		productRepository: productRepository,
 	}
 }
 
-func (cp *CreateProduct) Execute(productDTO *dtos.ProductDTO) (*dtos.ProductDTO, error) {
+func (cp *CreateProductUseCase) Execute(productDTO *dtos.ProductDTO) (*dtos.ProductDTO, error) {
 	product := entities.CreateProduct(
 		productDTO.Name,
 		entities.ProductCategory(strings.ToUpper(productDTO.Category)),

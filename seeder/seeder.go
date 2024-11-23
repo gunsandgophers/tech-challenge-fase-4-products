@@ -11,17 +11,13 @@ import (
 
 type Seeder struct {
 	connection         *database.PGXConnectionAdapter
-	customerRepository *repositories.CustomerRepositoryDB
 	productRepository  *repositories.ProductRepositoryDB
-	orderRepository    *repositories.OrderRepositoryDB
 }
 
 func newSeeder() *Seeder {
 	seeder := &Seeder{}
 	seeder.connection = database.NewPGXConnectionAdapter()
-	seeder.customerRepository = repositories.NewCustomerRepositoryDB(seeder.connection)
 	seeder.productRepository = repositories.NewProductRepositoryDB(seeder.connection)
-	seeder.orderRepository = repositories.NewOrderRepositoryDB(seeder.connection)
 	return seeder
 }
 
@@ -47,6 +43,5 @@ func main() {
 		"",
 	))
 	fmt.Println("Finish Seeders")
-
 }
 
