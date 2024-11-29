@@ -32,7 +32,7 @@ services:
       POSTGRES_PASSWORD: tech-challenge-fase-4-products
       PGDATA: /var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U tech-challenge-fase"]
+      test: ["CMD-SHELL", "pg_isready -U tech-challenge-fase-4-products"]
       interval: 1s
       timeout: 1s
       retries: 5
@@ -52,9 +52,9 @@ services:
         condition: service_healthy
   migrate:
     build:
-      context: ./migrations
+      contmigrate/migrateext: ./migrations
       dockerfile: Dockerfile
-    image: local-migrate
+    image: local-migrate-products
     environment:
       DB_URI: "postgres://tech-challenge-fase-4-products:tech-challenge-fase-4-products@dbproducts/tech-challenge-fase-4-products?sslmode=disable"
     restart: on-failure:5

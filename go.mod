@@ -22,6 +22,7 @@ require (
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
+	github.com/stretchr/testify v1.10.0 // indirect
 	golang.org/x/tools v0.21.0 // indirect
 )
 
