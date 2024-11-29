@@ -84,31 +84,6 @@ func (r *ProductRepositoryDB) Delete(ID string) error {
 	return nil
 }
 
-func (r *ProductRepositoryDB) ListProducts() ([]*entities.Product, error) {
-	sql := `
-	SELECT
-		id,
-		name,
-		category,
-		price,
-		description,
-		image
-	FROM
-		products
-	`
-	rows, err := r.conn.Query(sql)
-	if err != nil {
-		return nil, err
-	}
-	var products []*entities.Product
-	for rows.Next() {
-		if p, err := r.toEntity(rows); err == nil {
-			products = append(products, p)
-		}
-	}
-	return products, nil
-}
-
 func (r *ProductRepositoryDB) FindProductByCategory(category entities.ProductCategory, page, size int) ([]*entities.Product, error) {
 	sql := `
 	SELECT

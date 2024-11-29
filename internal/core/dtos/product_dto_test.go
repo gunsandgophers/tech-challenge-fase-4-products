@@ -1,23 +1,29 @@
 package dtos
 
-import "tech-challenge-fase-1/internal/core/entities"
+import (
+	"tech-challenge-fase-1/internal/core/entities"
+	"testing"
 
-type ProductDTO struct {
-	ID          string
-	Name        string
-	Category    string
-	Price       float64
-	Description string
-	Image       string
-}
+	"github.com/stretchr/testify/assert"
+)
 
-func NewProductDTOFromEntity(product *entities.Product) *ProductDTO {
-	return &ProductDTO{
-		ID:          product.GetId(),
-		Name:        product.GetName(),
-		Category:    product.GetCategory().String(),
-		Price:       product.GetPrice(),
-		Description: product.GetDescription(),
-		Image:       product.GetImage(),
-	}
+func TestNewProductDTOFromEntity(t *testing.T) {
+	//Arrange
+	product := entities.CreateProduct(
+		"Product 1",
+		entities.PRODUCT_CATEGORY_SANDWICH,
+		10,
+		"Product 1 description",
+		"image...",
+	)
+	//Act
+	dto := NewProductDTOFromEntity(product)
+	//Assert
+	assert.NotNil(t, dto)
+	assert.Equal(t, product.GetId(), dto.ID)
+	assert.Equal(t, product.GetName(), dto.Name)
+	assert.Equal(t, product.GetCategory().String(), dto.Category)
+	assert.Equal(t, product.GetPrice(), dto.Price)
+	assert.Equal(t, product.GetDescription(), dto.Description)
+	assert.Equal(t, product.GetImage(), dto.Image)
 }

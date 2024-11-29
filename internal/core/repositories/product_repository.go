@@ -8,5 +8,4 @@ type ProductRepositoryInterface interface {
 	FindProductByID(ID string) (*entities.Product, error)
 	Delete(ID string) error
 	FindProductByCategory(category entities.ProductCategory, page, size int) ([]*entities.Product, error)
-	ListProducts() ([]*entities.Product, error)
 }
