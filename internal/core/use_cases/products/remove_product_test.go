@@ -1,6 +1,7 @@
 package products
 
 import (
+	"errors"
 	"tech-challenge-fase-1/internal/core/entities"
 	"tech-challenge-fase-1/internal/tests/mocks"
 	"testing"
@@ -24,5 +25,18 @@ func TestNewDeleteProductUseCase(t *testing.T) {
 	assert.Nil(t, err)
 }
 
+func TestNewDeleteProductUseCase_InvalidID(t *testing.T) {
+	//Arrange
+	repo := &mocks.ProductRepositoryMock{}
+	repo.On("FindProductByID", mock.Anything).Return(&entities.Product{}, errors.New("Invalid"))
+	repo.On("Delete", mock.Anything).Return(nil)
+	uc := NewDeleteProductUseCase(repo)
+
+	// Act
+	err := uc.Execute(uuid.NewString())
+
+	// Asset
+	assert.NotNil(t, err)
+}
 
 

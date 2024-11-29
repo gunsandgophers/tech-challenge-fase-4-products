@@ -1,6 +1,7 @@
 package products
 
 import (
+	"errors"
 	"tech-challenge-fase-1/internal/core/dtos"
 	"tech-challenge-fase-1/internal/core/entities"
 	"tech-challenge-fase-1/internal/tests/mocks"
@@ -38,3 +39,22 @@ func TestCreateProductUseCase(t *testing.T) {
 	assert.Equal(t, inputDTO.Image, outputDTO.Image)
 }
 
+func TestCreateProductUseCase_InvalidProduct(t *testing.T) {
+	//Arrange
+	repo := &mocks.ProductRepositoryMock{}
+	repo.On("Insert", mock.Anything).Return(errors.New("Invalid"))
+	uc := NewCreateProductUseCase(repo)
+	inputDTO := &dtos.ProductDTO{
+		Name: "Product 1",
+		Category: "",
+		Price: float64(40.2),
+		Description: "Description ...",
+		Image: "Image ...",
+	}
+
+	// Act
+	_, err := uc.Execute(inputDTO)
+
+	// Asset
+	assert.NotNil(t, err)
+}

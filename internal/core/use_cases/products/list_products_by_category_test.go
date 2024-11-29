@@ -1,6 +1,7 @@
 package products
 
 import (
+	"errors"
 	"tech-challenge-fase-1/internal/core/entities"
 	"tech-challenge-fase-1/internal/tests/mocks"
 	"testing"
@@ -32,3 +33,16 @@ func TestNewListProductsByCategoryUseCase(t *testing.T) {
 }
 
 
+func TestNewListProductsByCategoryUseCase_InvalidPageAndSize(t *testing.T) {
+	//Arrange
+	repo := &mocks.ProductRepositoryMock{}
+	var prods []*entities.Product
+	repo.On("FindProductByCategory", mock.Anything, -1, -1).Return(prods, errors.New("Invalid"))
+	uc := NewListProductsByCategoryUseCase(repo)
+
+	// Act
+	_, err := uc.Execute(entities.PRODUCT_CATEGORY_DESSERTS.String(), -1, -1)
+
+	// Asset
+	assert.NotNil(t, err)
+}
