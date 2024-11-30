@@ -52,7 +52,7 @@ services:
         condition: service_healthy
   migrate:
     build:
-      contmigrate/migrateext: ./migrations
+      context: ./migrations
       dockerfile: Dockerfile
     image: local-migrate-products
     environment:

@@ -152,7 +152,7 @@ func (pc *ProductController) DeleteProduct(c httpserver.HTTPContext) {
 //	@Success		200			{array}		dtos.ProductDTO
 //	@Failure		400			{string}	string	"when bad request"
 //	@Failure		500			{string}	string	"when list products process error"
-//	@Router			/product/{category}/ [get]
+//	@Router			/product/category/{category}/ [get]
 func (pc *ProductController) ListProductsByCategory(c httpserver.HTTPContext) {
 	category := c.Param("category")
 
@@ -176,5 +176,19 @@ func (pc *ProductController) ListProductsByCategory(c httpserver.HTTPContext) {
 
 	c.JSON(http.StatusOK, httpserver.Payload{
 		"products": products,
+	})
+}
+
+func (pc *ProductController) GetProduct(c httpserver.HTTPContext) {
+	productID := c.Param("id")
+	product, err := products.NewGetProductUseCase(pc.productRepository).Execute(productID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, httpserver.Payload{
+			"error": err.Error(),
+		})
+		return
+	}
+	c.JSON(http.StatusOK, httpserver.Payload{
+		"product": product,
 	})
 }

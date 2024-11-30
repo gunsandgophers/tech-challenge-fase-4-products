@@ -18,7 +18,8 @@ func registerRouters(app *APIApp) {
 	app.httpServer.POST("/product", productController.CreateProduct)
 	app.httpServer.PUT("/product/:id", productController.UpdateProduct)
 	app.httpServer.DELETE("/product/:id", productController.DeleteProduct)
-	app.httpServer.GET("/product/:category", productController.ListProductsByCategory)
+	app.httpServer.GET("/product/:id", productController.GetProduct)
+	app.httpServer.GET("/product/category/:category", productController.ListProductsByCategory)
 
 	app.httpServer.SetSwagger("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 }
