@@ -3,6 +3,9 @@ package main
 import (
 	_ "tech-challenge-fase-1/docs"
 	"tech-challenge-fase-1/internal/infra/app"
+	"tech-challenge-fase-1/internal/infra/database"
+	httpserver "tech-challenge-fase-1/internal/infra/http"
+	"tech-challenge-fase-1/internal/infra/repositories"
 )
 
 //	@title			Swagger Example API
@@ -24,7 +27,10 @@ import (
 // @externalDocs.description	OpenAPI
 // @externalDocs.url			https://swagger.io/resources/open-api/
 func main() {
-	app := app.NewAPIApp()
+	httpServer := httpserver.NewGinHTTPServerAdapter()
+	connection := database.NewPGXConnectionAdapter()
+	productRepository := repositories.NewProductRepositoryDB(connection)
+	app := app.NewAPIApp(httpServer, productRepository)
 	app.Run()
-	defer app.Shutdown()
+	defer connection.Close()
 }
