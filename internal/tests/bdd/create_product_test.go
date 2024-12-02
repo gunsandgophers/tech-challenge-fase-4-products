@@ -127,7 +127,7 @@ func theresShouldHaveANewProduct(ctx context.Context, name string, category stri
 func TestFeatures(t *testing.T) {
 	productRepository := &mocks.ProductRepositoryMock{}
 	productRepository.On("Insert", mock.Anything).Return(nil)
-	app := fixtures.NewAPIAppBDDTest(productRepository)
+	app := fixtures.NewAPIAppIntegrationTest(productRepository)
   suite := godog.TestSuite{
     ScenarioInitializer: InitializeScenario,
     Options: &godog.Options{
