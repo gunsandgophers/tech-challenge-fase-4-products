@@ -7,7 +7,7 @@ import (
 )
 
 
-func NewAPIAppBDDTest(productRepository repositories.ProductRepositoryInterface) *app.APIApp {
+func NewAPIAppIntegrationTest(productRepository repositories.ProductRepositoryInterface) *app.APIApp {
 	httpServer := httpserver.NewGinHTTPServerAdapter()
 	return app.NewAPIApp(httpServer, productRepository)
 }

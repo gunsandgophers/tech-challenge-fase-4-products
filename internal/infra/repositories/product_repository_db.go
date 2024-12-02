@@ -1,6 +1,7 @@
 package repositories
 
 import (
+	"fmt"
 	"strings"
 	"tech-challenge-fase-1/internal/core/entities"
 	"tech-challenge-fase-1/internal/core/errors"
@@ -104,6 +105,9 @@ func (r *ProductRepositoryDB) FindProductByCategory(category entities.ProductCat
 		return nil, err
 	}
 	var products []*entities.Product
+
+	fmt.Println("rows", rows)
+
 	for rows.Next() {
 		if p, err := r.toEntity(rows); err == nil {
 			products = append(products, p)
