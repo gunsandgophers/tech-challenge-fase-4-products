@@ -164,6 +164,18 @@ func (pc *ProductController) ListProductsByCategory(c httpserver.HTTPContext) {
 	})
 }
 
+// GetProduct godoc
+//
+//	@Summary		Get product
+//	@Description	Get product information by ID
+//	@Tags			products
+//	@Accept			json
+//	@Produce		json
+//	@Param			id	path		string	true	"Product identifier"
+//	@Success		200			{array}		dtos.ProductDTO
+//	@Failure		400			{string}	string	"when bad request"
+//	@Failure		500			{string}	string	"when list products process error"
+//	@Router			/product/{id}/ [get]
 func (pc *ProductController) GetProduct(c httpserver.HTTPContext) {
 	productID := c.Param("id")
 	product, err := products.NewGetProductUseCase(pc.productRepository).Execute(productID)
